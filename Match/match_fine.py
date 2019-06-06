@@ -1,5 +1,11 @@
+
+
+
+
+
 def get_close_S(shape, sc, portion, k):
     S = []
+    yaws = []
     sc = int(sc)
     for i in range(-k, k+1):
         left = sc + i - portion[0]
@@ -15,4 +21,5 @@ def get_close_S(shape, sc, portion, k):
             shape_part = shape[left:right]
 
         S.append(shape_part)
-    return S
+        yaws.append((left+right)//2)
+    return S, yaws

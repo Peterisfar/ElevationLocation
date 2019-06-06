@@ -14,17 +14,17 @@ ImageData = read_data_to_txt("../data/09_59_19_res.txt")  # 24 --->640  (list)
 # step 2 : produce image data , get tm
 portion, shape_q, curve_q, corner_q, tm = pretreat_q(ImageData)
 
-database = []
 
 for i, skyline_dem in enumerate(DemDatas):
     print(i)
     data = {}
+    filename = skyline_dem[0]
     skyline_dem = list(map(int, skyline_dem[1:]))
     shape_d, curve_d, corner_d = pretreat_d(skyline_dem)
     # step 3 : 得到形状片段集
     S, S_curve, S_corner = get_Vmaxtix(shape_d, curve_d, corner_d, portion=portion)
 
-    data["filename"] = skyline_dem[0]
+    data["filename"] = filename
     data["S"] = S
     data["S_curve"] = S_curve
     data["S_corner"] = S_corner
@@ -32,8 +32,7 @@ for i, skyline_dem in enumerate(DemDatas):
     data["curve_d"] = curve_d
     data["corner_d"] = corner_d
 
-    database.append(data)
 
-with open("../data/result.json", 'w') as f:
-    json.dump(database, f)
-    print("保存json文件完成....")
+    with open("../data/result/{}.json".format(filename.replace(".jpg", "")), 'w') as f:
+        json.dump(data, f)
+        print("保存json文件完成....")
