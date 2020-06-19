@@ -21,12 +21,12 @@ def get_yaw_in_area(yaw, yaw0, area=30):
         else:
             return False
     elif yaw<area:
-        if yaw0 > 360-area+yaw or yaw0 < yaw+30:
+        if yaw > 360-area+yaw0 or yaw < yaw0+area:
             return True
         else:
             return False
     else:
-        if yaw0 < area-360+yaw or yaw0 > yaw - area:
+        if yaw < area-360+yaw0 or yaw > yaw0 - area:
             return True
         else:
             return False

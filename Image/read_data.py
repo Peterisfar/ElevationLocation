@@ -12,6 +12,9 @@ def mask2line(img):
             if (img[h,w] == np.array([0, 0, 255])).all():
                 line.append(h)
                 break
+    # 如果line的长度少于640则默认少的部分填补line[0]
+    if len(line)<640:
+        line = [line[0]]*(640-len(line)) + line
     return line
 
 

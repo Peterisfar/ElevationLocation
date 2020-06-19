@@ -63,15 +63,15 @@ def img2line(ori):
         img_GR_col = img_mean[:, wi]
         for hi, pixl in enumerate(img_s_col):
             # way1---> not good
-            # if (pixl != np.array([241, 149, 138])).all():
-            #     line.append(hi)  # height need to adjust(opencv)
-            #     break
+            if (pixl != np.array([240, 149, 137])).all():
+                line.append(hi)  # height need to adjust(opencv)
+                break
 
             # way2---> threshold
-            if img_GR_col[hi] >144 or img_GR_col[hi] < 140:
-                if pixl < 100 or pixl > 200:
-                    line.append(hi)
-                    break
+            # if img_GR_col[hi] >144 or img_GR_col[hi] < 140:
+            #     if pixl < 100 or pixl > 200:
+            #         line.append(hi)
+            #         break
 
             # way3---> linear point threshold --->not good
             # dist = np.sum(np.abs(pixl-img_col[hi+1]))
@@ -81,11 +81,11 @@ def img2line(ori):
 
     # filter line
     line = mean_filter(line, 3)
-    # show_line_on_img(ori, line)
+    show_line_on_img(ori, line)
     return line
 
 def getDemSkylinesCsv(imgs_dir, csv_path):
-    filenames = os.listdir(imgs_dir)[19:]
+    filenames = os.listdir(imgs_dir)
 
     for i, filename in enumerate(filenames):
         img_path = os.path.join(imgs_dir, filename)
